@@ -6,7 +6,7 @@ from ray.tune.schedulers import ASHAScheduler
 import os
 
 # Simple config
-config_fast = {
+config_fast_mooc = {
     "embedding_dim": 8,
     "learning_rate": 1e-3,
     "split": 500,
@@ -15,7 +15,21 @@ config_fast = {
     "dataset": "mooc",
     "n_epoch": 5,
     "prop_train": 0.06,
-    "state" : True
+    "state" : True,
+    "device": "cpu"
+}
+
+config_fast_wikipedia = {
+    "embedding_dim": 8,
+    "learning_rate": 1e-3,
+    "split": 500,
+    "lambda_u": 1,
+    "lambda_i": 1,
+    "dataset": "wikipedia",
+    "n_epoch": 5,
+    "prop_train": 0.06,
+    "state" : True,
+    "device": "cpu"
 }
 
 config_long = {
@@ -27,7 +41,8 @@ config_long = {
     "dataset": "mooc",
     "n_epoch": 5,
     "prop_train": 0.6,
-    "state" : True
+    "state" : True,
+    "device": "cpu"
 }
 
 
@@ -35,7 +50,7 @@ if __name__ == '__main__':
     print("Start the trainning")
     analysis = tune.run(train_ray,
                         num_samples=1,
-                        config=config_fast,
+                        config=config_fast_mooc,
                         resources_per_trial={"cpu": 20},
                         local_dir="./result",
                         verbose=0)

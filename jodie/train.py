@@ -38,7 +38,7 @@ def train_ray(config, checkpoint_dir=None):
     activation_rnn = "tanh"
     MLP_hidden_layer_dim = 50
 
-    device = "cpu"
+    device = config["device"]
     nb_epoch = config["n_epoch"]
     state_change = config["state"]
     proportion_train = config["prop_train"]
