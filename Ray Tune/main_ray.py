@@ -13,4 +13,10 @@ config = {
     "lambda_i": tune.grid_search([0.1, 1, 10])
 }
 
-analysis = tune.run(train_ray, num_samples = 1, config=config, resources_per_trial = {"cpu" : 10}, local_dir = "/home/gauthierv/jodie/compte_rendu", verbose = 0)
+if __name__ == '__main__': 
+	analysis = tune.run(train_ray, 
+			    num_samples = 1, 
+			    config=config, 
+			    resources_per_trial = {"cpu" : 10}, 
+			    local_dir = "/home/gauthierv/jodie/compte_rendu", 
+			    verbose = 0)
