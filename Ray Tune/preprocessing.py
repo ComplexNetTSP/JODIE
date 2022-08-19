@@ -11,7 +11,6 @@ from sklearn.preprocessing import scale
 
 # preprocessing data
 def preprocess(df_to_numpy):
-
     user_sequence = df_to_numpy[:, 0]
     item_sequence = df_to_numpy[:, 1]
     timestamp_sequence = df_to_numpy[:, 2]
@@ -74,8 +73,6 @@ def init_tbatch():
     t.tbatch_id_item = defaultdict(lambda: -1)
 
 # t-batch
-
-
 def t_batch(id_user_sequence, id_item_sequence, timestamp_sequence, feature_sequence, y_true_labels, previous_item_sequence, delta_u, delta_i, proportion_train, split=500):
 
     tbatch_time = None
@@ -200,7 +197,7 @@ def fetch_datasets(name, data_path="./data/"):
             col_name.append("f_" + str(i - 3))
         df.columns = col_name
 
-        # create the data dir if not exist
+        # create the data directory if not exist
         if not os.path.isdir("./data"):
             os.mkdir("./data")
         # save the dataset localy
