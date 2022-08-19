@@ -36,6 +36,6 @@ if __name__ == '__main__':
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_fast,
-                        resources_per_trial={"cpu": 2},
+                        resources_per_trial={"cpu": 20},
                         local_dir="./result",
                         verbose=0)

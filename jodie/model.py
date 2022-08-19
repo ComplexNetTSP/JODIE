@@ -104,10 +104,9 @@ def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, 
     "user_embeddings_time_series" : user_embeddings_time_series.cpu().numpy(),
     "item_embeddings_time_series" : item_embeddings_time_series.cpu().numpy()
   }
-  dir = os.path.join("/home/gauthierv/jodie/saved_models/", "saved_model_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
-  if not os.path.exists(dir):
-    os.mkdir(dir)
-  filename = os.path.join(dir, "save_ep_{}".format(epoch))
+  filename = os.path.join("./saved_models/", "saved_model_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
+  if not os.path.exists(os.path.dirname(filename)):
+    os.mkdir(os.path.dirname(filename))
   torch.save(state, filename)
 
 # save parameters
@@ -119,15 +118,14 @@ def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i):
     "lambda_u" : lambda_u,
     "lambda_i" : lambda_i
   }
-  dir = os.path.join("/home/gauthierv/jodie/saved_params/", "saved_param_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
-  if not os.path.exists(dir):
-    os.mkdir(dir)
-  filename = os.path.join(dir, "save_param")
+  filename = os.path.join("./saved_params/", "saved_param_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
+  if not os.path.exists(os.path.dirname(filename)):
+    os.mkdir(os.path.dirname(filename))
   torch.save(state, filename)
 
 # load parameters
 def load_param(config):
-  filename = "/home/gauthierv/jodie/saved_params/saved_param_{}/save_param".format(config)
+  filename = "./saved_param_{}/save_param".format(config)
   checkpoint = torch.load(filename)
   embedding_dim = checkpoint["embedding_dim"]
   learning_rate = checkpoint["learning_rate"]
@@ -138,7 +136,7 @@ def load_param(config):
 
 # load model
 def load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i):
-  filename = "/home/gauthierv/jodie/saved_models/saved_model_{}_{}_{}_{}_{}/save_ep_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
+  filename = "./saved_models/saved_model_{}_{}_{}_{}_{}/save_ep_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
   checkpoint = torch.load(filename)
   user_embeddings = Variable(torch.from_numpy(checkpoint["user_embeddings"]).to(device))
   item_embeddings = Variable(torch.from_numpy(checkpoint["item_embeddings"]).to(device))
