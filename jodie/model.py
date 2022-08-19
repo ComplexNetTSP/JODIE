@@ -2,7 +2,7 @@
 from sklearn.preprocessing import scale
 
 # nos packages
-from preprocessing import *
+from jodie.preprocessing import *
 
 import torch
 from torch import nn
@@ -12,7 +12,7 @@ import math
 from torch.nn import functional as F
 import pandas as pd
 
-import train_ray as t
+import jodie.train as t
 
 import os
 
