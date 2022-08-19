@@ -174,7 +174,7 @@ def set_embedding(id_user_sequence, id_item_sequence, proportion_train, embeddin
     embedding_dynamic_static_item.detach()
 
 
-def fetch_datasets(name):
+def fetch_datasets(name, data_path="./data/"):
     """
     This function fetch the following datasets from the http://snap.stanford.edu/jodie/ repository:
         - mooc dataset
@@ -184,8 +184,7 @@ def fetch_datasets(name):
     Then it save the data in a csv file in the data dir and return a pandas dataframe
     """
     assert name in ["lastfm", "mooc", "reddit", "wikipedia"]
-
-    dataset_path = "./data/" + name + ".csv"
+    dataset_path = data_path + name + ".csv"
     url = "http://snap.stanford.edu/jodie/" + name + ".csv"
 
     if os.path.exists(dataset_path):
