@@ -1,6 +1,5 @@
 name: jodie
 channels:
-  - pytorch
   - conda-forge
   - defaults
 dependencies:
@@ -13,7 +12,7 @@ dependencies:
   - tqdm
   - pandas
   - scikit-learn
-  - pytorch
   - pip:
     - ray
     - ray[tune]
+    - torch
