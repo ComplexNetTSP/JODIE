@@ -3,8 +3,8 @@ import pandas as pd
 import torch
 import itertools
 from collections import defaultdict
-import train_ray as t
-from train_ray import *
+import jodie.train as t
+from jodie.train import *
 import os
 
 # jodie packages

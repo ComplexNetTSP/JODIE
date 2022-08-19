@@ -12,7 +12,10 @@ config_fast = {
     "split": 500,
     "lambda_u": 1,
     "lambda_i": 1,
-    "dataset": "mooc"
+    "dataset": "mooc",
+    "n_epoch": 5,
+    "prop_train": 0.06,
+    "state" : True
 }
 
 config_long = {
@@ -21,7 +24,10 @@ config_long = {
     "split": tune.grid_search([5, 500, 50000]),
     "lambda_u": tune.grid_search([0.1, 1, 10]),
     "lambda_i": tune.grid_search([0.1, 1, 10]),
-    "dataset": "mooc"
+    "dataset": "mooc",
+    "n_epoch": 5,
+    "prop_train": 0.6,
+    "state" : True
 }
 
 

@@ -1,6 +1,6 @@
 # nos packages
-from preprocessing import *
-from model import *
+from jodie.preprocessing import *
+from jodie.model import *
 
 # jodie packages
 import time
@@ -12,7 +12,7 @@ import pandas as pd
 from sklearn.metrics import roc_auc_score
 from ray import tune
 import sys
-import train_ray as t
+import jodie.train as t
 
 
 def train_ray(config, checkpoint_dir=None):
@@ -39,9 +39,9 @@ def train_ray(config, checkpoint_dir=None):
     MLP_hidden_layer_dim = 50
 
     device = "cpu"
-    nb_epoch = 5
-    state_change = True
-    proportion_train = 0.6
+    nb_epoch = config["n_epoch"]
+    state_change = config["state"]
+    proportion_train = config["prop_train"]
 
     idx_train = int(num_interaction * proportion_train)
     idx_val = int(num_interaction *
