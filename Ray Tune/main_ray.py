@@ -10,7 +10,7 @@ import os
 # Romain
 config = {
     "embedding_dim": tune.grid_search([8,16,32,64,128]),
-		"learning_rate" : 1e-3,
+	"learning_rate" : 1e-3,
     "split": tune.grid_search([5, 500, 50000]),
     "lambda_u": tune.grid_search([0.1, 1, 10]),
     "lambda_i": tune.grid_search([0.1, 1, 10]),
