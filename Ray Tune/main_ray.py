@@ -5,6 +5,7 @@ from model2 import *
 from ray.tune.schedulers import ASHAScheduler
 import os
 
+# This is a config for the model 
 config = {
     "embedding_dim": tune.grid_search([8,16,32,64,128]),
 		"learning_rate" : 1e-3,
