@@ -21,7 +21,7 @@ data = pd.read_csv("/home/gauthierv/jodie/ray_tune2/mooc.csv")
 df = data.to_numpy()
 proportion_train = 0.6
 device = "cpu"
-epoch = 5
+epoch = 50
 
 # preprocessing
 user_id, id_user_sequence, delta_u, previous_item_sequence, item_id, id_item_sequence, delta_i, timestamp_sequence, feature_sequence, true_labels = preprocess(df)
