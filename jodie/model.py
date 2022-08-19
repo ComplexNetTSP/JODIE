@@ -107,7 +107,6 @@ class RODIE(nn.Module):
 
 # save models
 def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, train_end_idx, user_embeddings_time_series, item_embeddings_time_series, embedding_dim, learning_rate, split, lambda_u, lambda_i):
-<<<<<<< HEAD
   state = {
     "user_embeddings" : user_embeddings.cpu().numpy(),
     "item_embeddings" : item_embeddings.cpu().numpy(),
@@ -123,31 +122,11 @@ def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, 
   if not os.path.exists(os.path.dirname(filename)):
     os.mkdir(os.path.dirname(filename))
   torch.save(state, filename)
-=======
-    state = {
-        "user_embeddings": user_embeddings.cpu().numpy(),
-        "item_embeddings": item_embeddings.cpu().numpy(),
-        "epoch": epoch,
-        "loss": loss,
-        "model": model.state_dict(),
-        "optimizer": optimizer.state_dict(),
-        "train_end_idx": train_end_idx,
-        "user_embeddings_time_series": user_embeddings_time_series.cpu().numpy(),
-        "item_embeddings_time_series": item_embeddings_time_series.cpu().numpy()
-    }
-    dir = os.path.join("/home/gauthierv/jodie/saved_models/", "saved_model_{}_{}_{}_{}_{}".format(
-        embedding_dim, learning_rate, split, lambda_u, lambda_i))
-    if not os.path.exists(dir):
-        os.mkdir(dir)
-    filename = os.path.join(dir, "save_ep_{}".format(epoch))
-    torch.save(state, filename)
->>>>>>> 861a6652ae25c3da3cb664d9d0ae92b72cca471a
 
 # save parameters
 
 
 def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i):
-<<<<<<< HEAD
   state = {
     "embedding_dim" : embedding_dim,
     "learning_rate" : learning_rate,
@@ -159,27 +138,11 @@ def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i):
   if not os.path.exists(os.path.dirname(filename)):
     os.mkdir(os.path.dirname(filename))
   torch.save(state, filename)
-=======
-    state = {
-        "embedding_dim": embedding_dim,
-        "learning_rate": learning_rate,
-        "split": split,
-        "lambda_u": lambda_u,
-        "lambda_i": lambda_i
-    }
-    dir = os.path.join("/home/gauthierv/jodie/saved_params/", "saved_param_{}_{}_{}_{}_{}".format(
-        embedding_dim, learning_rate, split, lambda_u, lambda_i))
-    if not os.path.exists(dir):
-        os.mkdir(dir)
-    filename = os.path.join(dir, "save_param")
-    torch.save(state, filename)
->>>>>>> 861a6652ae25c3da3cb664d9d0ae92b72cca471a
 
 # load parameters
 
 
 def load_param(config):
-<<<<<<< HEAD
   filename = "./saved_param_{}/save_param".format(config)
   checkpoint = torch.load(filename)
   embedding_dim = checkpoint["embedding_dim"]
@@ -188,23 +151,11 @@ def load_param(config):
   lambda_u = checkpoint["lambda_u"]
   lambda_i = checkpoint["lambda_i"]
   return embedding_dim, learning_rate, split, lambda_u, lambda_i
-=======
-    filename = "/home/gauthierv/jodie/saved_params/saved_param_{}/save_param".format(
-        config)
-    checkpoint = torch.load(filename)
-    embedding_dim = checkpoint["embedding_dim"]
-    learning_rate = checkpoint["learning_rate"]
-    split = checkpoint["split"]
-    lambda_u = checkpoint["lambda_u"]
-    lambda_i = checkpoint["lambda_i"]
-    return embedding_dim, learning_rate, split, lambda_u, lambda_i
->>>>>>> 861a6652ae25c3da3cb664d9d0ae92b72cca471a
 
 # load model
 
 
 def load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i):
-<<<<<<< HEAD
   filename = "./saved_models/saved_model_{}_{}_{}_{}_{}/save_ep_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
   checkpoint = torch.load(filename)
   user_embeddings = Variable(torch.from_numpy(checkpoint["user_embeddings"]).to(device))
@@ -215,20 +166,3 @@ def load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, sp
   model.load_state_dict(checkpoint["model"])
   optimizer.load_state_dict(checkpoint["optimizer"])
   return model, optimizer, user_embeddings, item_embeddings, user_embeddings_time_series, item_embeddings_time_series, train_end_idx
-=======
-    filename = "/home/gauthierv/jodie/saved_models/saved_model_{}_{}_{}_{}_{}/save_ep_{}".format(
-        embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
-    checkpoint = torch.load(filename)
-    user_embeddings = Variable(torch.from_numpy(
-        checkpoint["user_embeddings"]).to(device))
-    item_embeddings = Variable(torch.from_numpy(
-        checkpoint["item_embeddings"]).to(device))
-    train_end_idx = checkpoint["train_end_idx"]
-    user_embeddings_time_series = Variable(torch.from_numpy(
-        checkpoint["user_embeddings_time_series"]).to(device))
-    item_embeddings_time_series = Variable(torch.from_numpy(
-        checkpoint["item_embeddings_time_series"]).to(device))
-    model.load_state_dict(checkpoint["model"])
-    optimizer.load_state_dict(checkpoint["optimizer"])
-    return model, optimizer, user_embeddings, item_embeddings, user_embeddings_time_series, item_embeddings_time_series, train_end_idx
->>>>>>> 861a6652ae25c3da3cb664d9d0ae92b72cca471a
