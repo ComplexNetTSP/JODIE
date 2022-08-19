@@ -14,4 +14,5 @@ dependencies:
   - scikit-learn
   - pytorch
   - pip:
+    - ray
     - ray[tune]
