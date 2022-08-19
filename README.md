@@ -13,7 +13,7 @@ $ conda activate jodie
 $ python -m pip install -r requirements.txt  
 ```
 
-### With conda
+### With virtual env
 ```bash
 $ python -m venv jodie-env
 $ source jodie-env/bin/activate
