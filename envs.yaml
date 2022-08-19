@@ -1,0 +1,17 @@
+name: jodie
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python == 3.10
+  - pip
+  - numpy
+  - jupyter
+  - jupyterlab
+  - tqdm
+  - pandas
+  - scikit-learn
+  - pytorch
+  - pip:
+    - ray[tune]
