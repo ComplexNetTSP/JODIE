@@ -1,5 +1,7 @@
 # JODIE
 
+- Rescience C paper on [overleaf](https://www.overleaf.com/2735637757fvxgpsztspdw)
+
 ## Install the python environement 
 
 ### With conda 
