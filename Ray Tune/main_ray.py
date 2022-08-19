@@ -6,6 +6,7 @@ from ray.tune.schedulers import ASHAScheduler
 import os
 
 # This is a config for the model 
+# Vincent
 config = {
     "embedding_dim": tune.grid_search([8,16,32,64,128]),
 		"learning_rate" : 1e-3,
