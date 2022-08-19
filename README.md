@@ -1,6 +1,6 @@
 # JODIE
 
-- Rescience C paper on [overleaf](https://www.overleaf.com/2735637757fvxgpsztspdw)
+- Rescience C paper on [overleaf](https://www.overleaf.com/read/yzdtjgjppgkg)
 
 ## Install the python environement 
 
