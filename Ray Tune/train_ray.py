@@ -23,7 +23,12 @@ def train_ray(config, checkpoint_dir = None):
   fichier.write("{}_{}_{}_{}_{}\n".format(config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"]))
   fichier.close()
 
-  data = pd.read_csv("/home/gauthierv/jodie/ray_tune2/mooc.csv")
+  #data = pd.read_csv("/home/gauthierv/jodie/ray_tune2/mooc.csv")
+  if config["dataset"] == "mooc":
+	data = pd.read_csv("http://snap.stanford.edu/jodie/mooc.csv")
+  else:
+	raise Error("no dataset")
+	return 
 
   # small dataset for testing
   #data = data[:len(data)*2//5]
