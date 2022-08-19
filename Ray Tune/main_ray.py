@@ -7,6 +7,7 @@ import os
 
 # This is a config for the model 
 # Vincent
+# Romain
 config = {
     "embedding_dim": tune.grid_search([8,16,32,64,128]),
 		"learning_rate" : 1e-3,
