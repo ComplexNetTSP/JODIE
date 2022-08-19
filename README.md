@@ -8,13 +8,16 @@
 
 create the conda environement for jodie: 
 ```bash
-$ conda env create -f envs.yaml
+$ conda create --name jodie python=3.10
+$ conda activate jodie
+$ python -m pip install -r requirements.txt  
 ```
 
-
-Activate the environement: 
+### With conda
 ```bash
-$ conda activate jodie
+$ python -m venv jodie-env
+$ source jodie-env/bin/activate
+$ python -m pip install -r requirements.txt  
 ```
 ### Run the model 
 
