@@ -5,6 +5,7 @@ import itertools
 from collections import defaultdict
 import train_ray as t
 from train_ray import *
+import os
 
 # jodie packages
 from sklearn.preprocessing import scale
