@@ -4,8 +4,8 @@ import pandas as pd
 import torch
 import itertools
 from collections import defaultdict
-import tray2 as t
-from tray2 import *
+import train_ray as t
+from train_ray import *
 
 # jodie packages
 from sklearn.preprocessing import scale

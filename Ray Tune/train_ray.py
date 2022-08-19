@@ -1,6 +1,6 @@
 # nos packages
-from preprocess2 import *
-from model2 import *
+from preprocessing import *
+from model import *
 
 # jodie packages
 import time
@@ -12,7 +12,7 @@ import pandas as pd
 from sklearn.metrics import roc_auc_score
 from ray import tune
 import sys
-import tray2 as t
+import train_ray as t
 
 
 def train_ray(config, checkpoint_dir = None):

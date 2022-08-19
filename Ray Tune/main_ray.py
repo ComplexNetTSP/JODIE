@@ -1,7 +1,7 @@
-from tray2 import *
+from train_ray import *
 from ray import tune
-from preprocess2 import *
-from model2 import *
+from preprocessing import *
+from model import *
 from ray.tune.schedulers import ASHAScheduler
 import os
 

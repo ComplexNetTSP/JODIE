@@ -1,13 +1,13 @@
 # packages
 import argparse
-from preprocess2 import *
-from model2 import *
+from preprocessing import *
+from model import *
 from torch.autograd import Variable
 from sklearn.metrics import roc_auc_score
 import numpy as np
 from tqdm import tqdm
 
-import tray2 as t
+import train_ray as t
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--split_select')
