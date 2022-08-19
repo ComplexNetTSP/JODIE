@@ -16,7 +16,8 @@ Activate the environement:
 ```bash
 $ conda activate jodie
 ```
+### Run the model 
 
-Replication jodie model
-
-We use JODIE...
+```bash
+$ python trainning_example.py
+```
