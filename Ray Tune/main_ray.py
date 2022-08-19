@@ -10,7 +10,8 @@ config = {
 		"learning_rate" : 1e-3,
     "split": tune.grid_search([5, 500, 50000]),
     "lambda_u": tune.grid_search([0.1, 1, 10]),
-    "lambda_i": tune.grid_search([0.1, 1, 10])
+    "lambda_i": tune.grid_search([0.1, 1, 10]),
+    "dataset" : "mooc"
 }
 
 if __name__ == '__main__': 
