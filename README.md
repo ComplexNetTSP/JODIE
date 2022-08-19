@@ -10,7 +10,7 @@ $ conda env create -f envs.yaml
 ```
 
 
-Activate the environement 
+Activate the environement: 
 ```bash
 $ conda activate jodie
 ```
