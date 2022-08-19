@@ -5,8 +5,6 @@ from model2 import *
 from ray.tune.schedulers import ASHAScheduler
 import os
 
-# This is a config for the model 
-# Vincent
 # Romain
 config = {
     "embedding_dim": tune.grid_search([8,16,32,64,128]),
