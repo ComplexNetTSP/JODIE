@@ -153,8 +153,6 @@ def load_param(config):
   return embedding_dim, learning_rate, split, lambda_u, lambda_i
 
 # load model
-
-
 def load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i):
   filename = "./saved_models/saved_model_{}_{}_{}_{}_{}/save_ep_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
   checkpoint = torch.load(filename)

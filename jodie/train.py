@@ -20,7 +20,7 @@ def train_ray(config, checkpoint_dir=None):
     save_param(config["embedding_dim"], config["learning_rate"],
                config["split"], config["lambda_u"], config["lambda_i"])
 
-    fichier = open("/home/gauthierv/jodie/hyper-parameter.txt", "a")
+    fichier = open("./hyper-parameter.txt", "a")
     fichier.write("{}_{}_{}_{}_{}\n".format(
         config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"]))
     fichier.close()
@@ -47,10 +47,6 @@ def train_ray(config, checkpoint_dir=None):
     idx_val = int(num_interaction *
                   (proportion_train + (1 - proportion_train) / 2))
     idx_test = int(num_interaction)
-
-    # clue for testing
-    #idx_val = int(num_interaction * (proportion_train + 0.01))
-    #idx_test = int(num_interaction * (proportion_train + 0.02))
 
     loss_train = []
 
