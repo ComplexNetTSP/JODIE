@@ -24,3 +24,10 @@ $ python -m pip install -r requirements.txt
 ```bash
 $ python training_example.py
 ```
+
+```
+### Make predictions 
+
+```bash
+$ python evaluate_example.py
+```
