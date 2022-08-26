@@ -18,14 +18,15 @@ import jodie.train as t
 def train_ray(config, checkpoint_dir=None):
 
     save_param(config["embedding_dim"], config["learning_rate"],
-               config["split"], config["lambda_u"], config["lambda_i"], config["dataset"])
+               config["split"], config["lambda_u"], config["lambda_i"], config["dataset"], config["directory"])
 
-    fichier = open("./"+config["dataset"]+"hyper-parameter.txt", "a")
-    fichier.write("{}_{}_{}_{}_{}\n".format(
+    fichier = open(config["directory"]+"/"+config["dataset"]+"_hyper-parameter.txt", "a")
+    fichier.write("{},{},{},{},{}".format(
         config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"]))
+    fichier.write("\n")
     fichier.close()
-   
-    data = fetch_datasets(config["dataset"])
+    
+    data = fetch_datasets(config["dataset"], config["directory"])
 
     df = data.to_numpy()
     user_id, id_user_sequence, delta_u, previous_item_sequence, item_id, id_item_sequence, delta_i, timestamp_sequence, feature_sequence, true_labels = preprocess(
@@ -57,6 +58,7 @@ def train_ray(config, checkpoint_dir=None):
     CE_loss = nn.CrossEntropyLoss(weight=weight)
     MSE = nn.MSELoss()
 
+
     # initialize embedding
     init_embedding_user = nn.Parameter(F.normalize(
         torch.rand(config["embedding_dim"]).to(device), dim=0))
@@ -70,7 +72,7 @@ def train_ray(config, checkpoint_dir=None):
     embedding_item = init_embedding_item.repeat(num_items, 1)
     embedding_user_static = Variable(torch.eye(num_users).to(device))
     embedding_item_static = Variable(torch.eye(num_items).to(device))
-
+    
     # initialize model
     optimizer = torch.optim.Adam(
         model.parameters(), lr=config["learning_rate"], weight_decay=1e-5)
@@ -204,5 +206,5 @@ def train_ray(config, checkpoint_dir=None):
 
         if ep == nb_epoch - 1:
             save_model(model, optimizer, ep+1, loss_train, embedding_dynamic_static_user, embedding_dynamic_static_item, idx_train, embedding_user_timeserie,
-                       embedding_item_timeserie, config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"], config["dataset"])
+                       embedding_item_timeserie, config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"], config["dataset"], config["directory"])
             print(np.array(loss_train))

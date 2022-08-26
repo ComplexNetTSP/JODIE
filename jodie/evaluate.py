@@ -1,5 +1,5 @@
-from model import *
-from preprocessing import *
+from jodie.model import *
+from jodie.preprocessing import *
 
 # packages
 import argparse
@@ -8,12 +8,12 @@ from torch.autograd import Variable
 from sklearn.metrics import roc_auc_score
 import numpy as np
 from tqdm import tqdm
-import train as t
+import jodie.train as t
 
-def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6, state=True):
+def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6, state=True, directory="./"):
     
     dataset = fetch_datasets(data)
-
+    
     df = dataset.to_numpy()
 
     # preprocessing
@@ -23,14 +23,13 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
     num_item = len(item_id) + 1
     num_feature = len(feature_sequence[0])
     ratio_label = len(true_labels) / (1 + sum(true_labels))
-    print(len(true_labels))
-
-    embedding_dim, learning_rate, split, lambda_u, lambda_i = hyperparameter
+    
+    embedding_dim, learning_rate, split, lambda_u, lambda_i = hyperparameter.split(",")
+    embedding_dim, learning_rate, split, lambda_u, lambda_i = int(embedding_dim), float(learning_rate), int(split), int(lambda_u), int(lambda_i)
 
     idx_train = int(num_interaction * proportion_train)
     idx_val = int(num_interaction * (proportion_train + ((1 - proportion_train) / 2)))
     idx_test = int(num_interaction)
-
 
     tbatch_timespan = (timestamp_sequence[-1] - timestamp_sequence[0]) / split
     id_time_sequence = []
@@ -46,7 +45,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
     optimizer = torch.optim.Adam(model.parameters(), lr = lr, weight_decay = 1e-5)
 
     # load model and parameters
-    model, optimizer, embedding_dynamic_static_user, embedding_dynamic_static_item, embedding_user_timeserie, embedding_item_timeserie, idx_training = load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i)
+    model, optimizer, embedding_dynamic_static_user, embedding_dynamic_static_item, embedding_user_timeserie, embedding_item_timeserie, idx_training = load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i, data, directory)
 
     if idx_train != idx_training:
         sys.exit("Training proportion different")
@@ -87,19 +86,30 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
             if tbatch_time is None:
                 tbatch_time = id_time
 
-            embedding_user_input = embedding_user[torch.LongTensor([id_user])]
-            embedding_user_static_input = embedding_user_static[torch.LongTensor([id_user])]
-            embedding_item_input = embedding_item[torch.LongTensor([id_item])]
-            embedding_item_static_input = embedding_item_static[torch.LongTensor([id_item])]
+            if device == "cpu":
+                embedding_user_input = embedding_user[torch.LongTensor([id_user])]
+                embedding_user_static_input = embedding_user_static[torch.LongTensor([id_user])]
+                embedding_item_input = embedding_item[torch.LongTensor([id_item])]
+                embedding_item_static_input = embedding_item_static[torch.LongTensor([id_item])]
+                item_embedding_previous = embedding_item[torch.LongTensor([id_previous])]
+
+            if device == "gpu":
+                embedding_user_input = embedding_user[torch.cuda.LongTensor([id_user])]
+                embedding_user_static_input = embedding_user_static[torch.cuda.LongTensor([id_user])]
+                embedding_item_input = embedding_item[torch.cuda.LongTensor([id_item])]
+                embedding_item_static_input = embedding_item_static[torch.cuda.LongTensor([id_item])]
+                item_embedding_previous = embedding_item[torch.cuda.LongTensor([id_previous])]
 
             feature_tensor = Variable(torch.Tensor(id_feature).to(device)).unsqueeze(0)
             delta_u_tensor = Variable(torch.Tensor([id_delta_u]).to(device)).unsqueeze(0)
             delta_i_tensor = Variable(torch.Tensor([id_delta_i]).to(device)).unsqueeze(0)
 
-            item_embedding_previous = embedding_item[torch.LongTensor([id_previous])]
-
             projected_embedding_user = model.projection(embedding_user_input, delta_u_tensor)
-            embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
+            if device == "cpu":
+                embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
+
+            if device == "gpu":
+                embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.cuda.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
 
             predict_embedding_item = model.predict_embedding_item(embedding_user_item)
 
@@ -148,9 +158,8 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
         perf_val["val"] = [auc_val]
         auc_test = roc_auc_score(test_true, test_pred[:, 1])
         perf_test["test"] = [auc_test]
-        print(perf_val, perf_test)
 
-        file = open("./resultats/"+data+"{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
+        file = open(directory+"/resultats_"+data+"_{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
         metrics = ["AUC"]
         for i in range(len(metrics)):
             file.write("Validation : " + metrics[i] + " : " + str(perf_val["val"][i]) + "\n")
@@ -178,19 +187,31 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
                 tbatch_time = id_time
             
             # load embedding user and item
-            embedding_user_input = embedding_user[torch.LongTensor([id_user])]
-            embedding_user_static_input = embedding_user_static[torch.LongTensor([id_user])]
-            embedding_item_input = embedding_item[torch.LongTensor([id_item])]
-            embedding_item_static_input = embedding_item_static[torch.LongTensor([id_item])]
+            if device == "cpu":
+                embedding_user_input = embedding_user[torch.LongTensor([id_user])]
+                embedding_user_static_input = embedding_user_static[torch.LongTensor([id_user])]
+                embedding_item_input = embedding_item[torch.cuda.LongTensor([id_item])]
+                embedding_item_static_input = embedding_item_static[torch.cuda.LongTensor([id_item])]
+                item_embedding_previous = embedding_item[torch.cuda.LongTensor([id_previous])]
+
+            if device == "gpu":
+                embedding_user_input = embedding_user[torch.cuda.LongTensor([id_user])]
+                embedding_user_static_input = embedding_user_static[torch.cuda.LongTensor([id_user])]
+                embedding_item_input = embedding_item[torch.LongTensor([id_item])]
+                embedding_item_static_input = embedding_item_static[torch.LongTensor([id_item])]
+                item_embedding_previous = embedding_item[torch.LongTensor([id_previous])]
 
             feature_tensor = Variable(torch.Tensor(id_feature).to(device)).unsqueeze(0)
             delta_u_tensor = Variable(torch.Tensor([id_delta_u]).to(device)).unsqueeze(0)
             delta_i_tensor = Variable(torch.Tensor([id_delta_i]).to(device)).unsqueeze(0)
 
-            item_embedding_previous = embedding_item[torch.LongTensor([id_previous])]
-
             projected_embedding_user = model.projection(embedding_user_input, delta_u_tensor)
-            embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
+            
+            if device == "cpu":
+                embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
+
+            if device == "gpu":
+                embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.cuda.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
 
             predict_embedding_item = model.predict_embedding_item(embedding_user_item)
 
@@ -248,7 +269,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
         perf_test["test"] = [mrr_test, recall10_test]
         print(perf_val, perf_test)
 
-        file = open("./resultats/"+data+"/{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
+        file = open(directory+"/resultats/"+data+"/{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
         metrics = ["Mean Reciprocal Rank", "Recall@10"]
         for i in range(len(metrics)):
             file.write("Validation : " + metrics[i] + " : " + str(perf_val["val"][i]) + "\n")
