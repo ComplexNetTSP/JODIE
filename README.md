@@ -25,7 +25,6 @@ $ python -m pip install -r requirements.txt
 $ python training_example.py
 ```
 
-```
 ### Make predictions 
 
 ```bash
