@@ -106,7 +106,7 @@ class RODIE(nn.Module):
         return loss
 
 # save models
-def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, train_end_idx, user_embeddings_time_series, item_embeddings_time_series, embedding_dim, learning_rate, split, lambda_u, lambda_i):
+def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, train_end_idx, user_embeddings_time_series, item_embeddings_time_series, embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset):
   state = {
     "user_embeddings" : user_embeddings.cpu().numpy(),
     "item_embeddings" : item_embeddings.cpu().numpy(),
@@ -118,7 +118,7 @@ def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, 
     "user_embeddings_time_series" : user_embeddings_time_series.cpu().numpy(),
     "item_embeddings_time_series" : item_embeddings_time_series.cpu().numpy()
   }
-  filename = os.path.join("./saved_models/", "saved_model_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
+  filename = os.path.join("./saved_models/"+dataset+"/", "saved_model_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
   if not os.path.exists(os.path.dirname(filename)):
     os.mkdir(os.path.dirname(filename))
   torch.save(state, filename)
@@ -126,7 +126,7 @@ def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, 
 # save parameters
 
 
-def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i):
+def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset):
   state = {
     "embedding_dim" : embedding_dim,
     "learning_rate" : learning_rate,
@@ -134,7 +134,7 @@ def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i):
     "lambda_u" : lambda_u,
     "lambda_i" : lambda_i
   }
-  filename = os.path.join("./saved_params/", "saved_param_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
+  filename = os.path.join("./saved_params/"+dataset+"/", "saved_param_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
   if not os.path.exists(os.path.dirname(filename)):
     os.mkdir(os.path.dirname(filename))
   torch.save(state, filename)

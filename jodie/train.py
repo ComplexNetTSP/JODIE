@@ -18,9 +18,9 @@ import jodie.train as t
 def train_ray(config, checkpoint_dir=None):
 
     save_param(config["embedding_dim"], config["learning_rate"],
-               config["split"], config["lambda_u"], config["lambda_i"])
+               config["split"], config["lambda_u"], config["lambda_i"], config["dataset"])
 
-    fichier = open("./hyper-parameter.txt", "a")
+    fichier = open("./"+config["dataset"]+"hyper-parameter.txt", "a")
     fichier.write("{}_{}_{}_{}_{}\n".format(
         config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"]))
     fichier.close()
@@ -204,5 +204,5 @@ def train_ray(config, checkpoint_dir=None):
 
         if ep == nb_epoch - 1:
             save_model(model, optimizer, ep+1, loss_train, embedding_dynamic_static_user, embedding_dynamic_static_item, idx_train, embedding_user_timeserie,
-                       embedding_item_timeserie, config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"])
+                       embedding_item_timeserie, config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"], config["dataset"])
             print(np.array(loss_train))
