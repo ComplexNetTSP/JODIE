@@ -1,3 +1,6 @@
 __pycache__/
 result/
 jodie-env/
+data/
+saved_*
+*_hyper-parameter.txt

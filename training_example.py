@@ -7,7 +7,7 @@ import os
 """
 config_format = {
     "embedding_dim" : 8, 16, 32, 64, 128 or tune.grid_search([8, 16, 32, 64, 128]),
-    "learning_rate" : float 1e-5,
+    "learning_rate" : float (i.e.: 1e-5)
     "split" : integer between 1 and dataset number of observation,
     "lambda_u" : integer between 0 and infinity,
     "lambda_i" : integer between 0 and infinity,
@@ -16,12 +16,12 @@ config_format = {
     "prop_train" : between 0 and 1,
     "state" : True or False,
     "device" : "cpu" or "gpu",
-    "directory" : "/home/name/reporitory"
+    "directory" : "/path/reporitory"
 }
 """
 # Simple config
 config_fast_mooc = {
-    "embedding_dim": 8,
+    "embedding_dim": tune.grid_search([8, 9]),
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
@@ -31,21 +31,7 @@ config_fast_mooc = {
     "prop_train": 0.6,
     "state" : True,
     "device": "cpu",
-    "directory" : "/home/gauthierv/jodie"
-}
-
-config_fast_wikipedia = {
-    "embedding_dim": 8,
-    "learning_rate": 1e-3,
-    "split": 500,
-    "lambda_u": 1,
-    "lambda_i": 1,
-    "dataset": "wikipedia",
-    "n_epoch": 5,
-    "prop_train": 0.06,
-    "state" : True,
-    "device": "cpu",
-    "directory" : "/home/gauthierv/jodie"
+    "directory" : "/Users/vgauthier/Documents/TelecomSudParis/TravauxRecherche/Python/JODIE"
 }
 
 config_long = {
@@ -68,6 +54,6 @@ if __name__ == '__main__':
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_fast_mooc,
-                        resources_per_trial={"cpu": 20},
+                        resources_per_trial={"cpu": 4},
                         local_dir="./result",
                         verbose=0)
