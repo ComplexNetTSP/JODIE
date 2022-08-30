@@ -4,7 +4,21 @@ from jodie.model import *
 from jodie.train import *
 from ray.tune.schedulers import ASHAScheduler
 import os
-
+"""
+config_format = {
+    "embedding_dim" : 8, 16, 32, 64, 128 or tune.grid_search([8, 16, 32, 64, 128]),
+    "learning_rate" : float 1e-5,
+    "split" : integer between 1 and dataset number of observation,
+    "lambda_u" : integer between 0 and infinity,
+    "lambda_i" : integer between 0 and infinity,
+    "dataset" : "mooc", "wikipedia", "lastfm" or "reddit",
+    "n_epoch" : integer 50,
+    "prop_train" : between 0 and 1,
+    "state" : True or False,
+    "device" : "cpu" or "gpu",
+    "directory" : "/home/name/reporitory"
+}
+"""
 # Simple config
 config_fast_mooc = {
     "embedding_dim": 8,
@@ -13,10 +27,11 @@ config_fast_mooc = {
     "lambda_u": 1,
     "lambda_i": 1,
     "dataset": "mooc",
-    "n_epoch": 5,
-    "prop_train": 0.06,
+    "n_epoch": 1,
+    "prop_train": 0.6,
     "state" : True,
-    "device": "cpu"
+    "device": "cpu",
+    "directory" : "/home/gauthierv/jodie"
 }
 
 config_fast_wikipedia = {
@@ -29,7 +44,8 @@ config_fast_wikipedia = {
     "n_epoch": 5,
     "prop_train": 0.06,
     "state" : True,
-    "device": "cpu"
+    "device": "cpu",
+    "directory" : "/home/gauthierv/jodie"
 }
 
 config_long = {
@@ -39,15 +55,16 @@ config_long = {
     "lambda_u": tune.grid_search([0.1, 1, 10]),
     "lambda_i": tune.grid_search([0.1, 1, 10]),
     "dataset": "mooc",
-    "n_epoch": 5,
+    "n_epoch": 50,
     "prop_train": 0.6,
     "state" : True,
-    "device": "cpu"
+    "device": "cpu",
+    "directory" : "/home/gauthierv/jodie"
 }
 
 
 if __name__ == '__main__':
-    print("Start the trainning")
+    print("Start the training")
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_fast_mooc,

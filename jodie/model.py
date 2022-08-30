@@ -106,7 +106,7 @@ class RODIE(nn.Module):
         return loss
 
 # save models
-def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, train_end_idx, user_embeddings_time_series, item_embeddings_time_series, embedding_dim, learning_rate, split, lambda_u, lambda_i):
+def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, train_end_idx, user_embeddings_time_series, item_embeddings_time_series, embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset, directory):
   state = {
     "user_embeddings" : user_embeddings.cpu().numpy(),
     "item_embeddings" : item_embeddings.cpu().numpy(),
@@ -118,15 +118,14 @@ def save_model(model, optimizer, epoch, loss, user_embeddings, item_embeddings, 
     "user_embeddings_time_series" : user_embeddings_time_series.cpu().numpy(),
     "item_embeddings_time_series" : item_embeddings_time_series.cpu().numpy()
   }
-  filename = os.path.join("./saved_models/", "saved_model_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
-  if not os.path.exists(os.path.dirname(filename)):
-    os.mkdir(os.path.dirname(filename))
+  dir = os.path.join(directory+"/saved_models_"+dataset+"/", "saved_model")
+  if not os.path.exists(dir):
+    os.makedirs(dir)
+  filename = os.path.join(dir, "{}_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch))
   torch.save(state, filename)
 
 # save parameters
-
-
-def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i):
+def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset, directory):
   state = {
     "embedding_dim" : embedding_dim,
     "learning_rate" : learning_rate,
@@ -134,16 +133,15 @@ def save_param(embedding_dim, learning_rate, split, lambda_u, lambda_i):
     "lambda_u" : lambda_u,
     "lambda_i" : lambda_i
   }
-  filename = os.path.join("./saved_params/", "saved_param_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
-  if not os.path.exists(os.path.dirname(filename)):
-    os.mkdir(os.path.dirname(filename))
+  dir = os.path.join(directory+"/saved_params_"+dataset+"/", "saved_param")
+  if not os.path.exists(dir):
+    os.makedirs(dir)
+  filename = os.path.join(dir, "{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
   torch.save(state, filename)
 
 # load parameters
-
-
-def load_param(config):
-  filename = "./saved_param_{}/save_param".format(config)
+def load_param(embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset, directory):
+  filename = directory+"/saved_params_"+dataset+"/saved_param/{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i)
   checkpoint = torch.load(filename)
   embedding_dim = checkpoint["embedding_dim"]
   learning_rate = checkpoint["learning_rate"]
@@ -153,10 +151,8 @@ def load_param(config):
   return embedding_dim, learning_rate, split, lambda_u, lambda_i
 
 # load model
-
-
-def load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i):
-  filename = "./saved_models/saved_model_{}_{}_{}_{}_{}/save_ep_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
+def load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset, directory):
+  filename = directory+"/saved_models_"+dataset+"/saved_model/{}_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
   checkpoint = torch.load(filename)
   user_embeddings = Variable(torch.from_numpy(checkpoint["user_embeddings"]).to(device))
   item_embeddings = Variable(torch.from_numpy(checkpoint["item_embeddings"]).to(device))
