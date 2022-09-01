@@ -24,12 +24,12 @@ config_format = {
 """
 # Simple config
 config_fast_mooc = {
-    "embedding_dim": tune.grid_search([8, 16, 32]),
+    "embedding_dim": tune.grid_search([8, 9]),
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
     "lambda_i": 1,
-    "dataset": "mooc",
+    "dataset": "wikipedia",
     "n_epoch": 1,
     "prop_train": 0.6,
     "state" : True,
