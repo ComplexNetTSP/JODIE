@@ -1,4 +1,5 @@
 from ray import tune
+import ray
 from jodie.preprocessing import *
 from jodie.model import *
 from jodie.train import *
@@ -6,6 +7,17 @@ from jodie.evaluate import *
 from ray.tune.schedulers import ASHAScheduler
 import os
 import csv
+import logging
+
+logging.disable(logging.CRITICAL)
+ray.init(logging_level=logging.FATAL)
+logging.basicConfig(level=logging.CRITICAL)
+
+for logger_name in logging.root.manager.loggerDict:
+    logger = logging.getLogger(logger_name)
+    logger.propagate = False
+    logger.disabled = True
+
 
 """
 config_format = {
@@ -32,9 +44,9 @@ config_fast_mooc = {
     "dataset": "wikipedia",
     "n_epoch": 1,
     "prop_train": 0.6,
-    "state" : True,
+    "state" : False,
     "device": "cpu",
-    "directory" : "/Users/vgauthier/Documents/TelecomSudParis/TravauxRecherche/Python/JODIE"
+    "directory" : "/home/gauthierv/jodie"
 }
 
 if __name__ == '__main__':

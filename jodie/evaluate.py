@@ -62,6 +62,9 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
     embedding_user_static = embedding_dynamic_static_user[:, embedding_dim :]
     embedding_user_static = embedding_user_static.clone()
 
+    tbatch_time = None
+    loss = 0
+
     if state:
 
         val_pred = []
@@ -69,9 +72,6 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
 
         test_pred = []
         test_true = []
-
-        tbatch_time = None
-        loss = 0
 
         # no t-batch, treat each interaction
         for i in tqdm(range(idx_train, idx_test), desc = 'Progress bar'):
@@ -190,9 +190,9 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
             if device == "cpu":
                 embedding_user_input = embedding_user[torch.LongTensor([id_user])]
                 embedding_user_static_input = embedding_user_static[torch.LongTensor([id_user])]
-                embedding_item_input = embedding_item[torch.cuda.LongTensor([id_item])]
-                embedding_item_static_input = embedding_item_static[torch.cuda.LongTensor([id_item])]
-                item_embedding_previous = embedding_item[torch.cuda.LongTensor([id_previous])]
+                embedding_item_input = embedding_item[torch.LongTensor([id_item])]
+                embedding_item_static_input = embedding_item_static[torch.LongTensor([id_item])]
+                item_embedding_previous = embedding_item[torch.LongTensor([id_previous])]
 
             if device == "gpu":
                 embedding_user_input = embedding_user[torch.cuda.LongTensor([id_user])]
@@ -221,7 +221,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
             euclidean_dist = nn.PairwiseDistance()(predict_embedding_item.repeat(num_item, 1), torch.cat([embedding_item, embedding_item_static], dim = 1)).squeeze(-1)
 
             # calculate rank of the true item among all items
-            true_item_dist = euclidean_dist[item_id]
+            true_item_dist = euclidean_dist[id_item]
             euclidean_dist_smaller = (euclidean_dist < true_item_dist).data.cpu().numpy()
             true_item_rank = np.sum(euclidean_dist_smaller) + 1
 
@@ -244,7 +244,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
             loss += regularizer(update_embedding_item, embedding_item_input.detach(), lambda_i)
 
             if id_time - tbatch_time > tbatch_timespan:
-                tbatch_time = id_item
+                tbatch_time = id_time
                 loss.backward()
                 optimizer.step()
                 optimizer.zero_grad()
@@ -267,7 +267,6 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
 
         perf_val["val"] = [mrr_val, recall10_val]
         perf_test["test"] = [mrr_test, recall10_test]
-        print(perf_val, perf_test)
 
         file = open(directory+"/resultats/"+data+"/{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
         metrics = ["Mean Reciprocal Rank", "Recall@10"]

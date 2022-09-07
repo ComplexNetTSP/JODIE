@@ -31,7 +31,7 @@ config_fast_mooc = {
     "prop_train": 0.6,
     "state" : True,
     "device": "cpu",
-    "directory" : "/Users/vgauthier/Documents/TelecomSudParis/TravauxRecherche/Python/JODIE"
+    "directory" : "/home/gauthierv/jodie/test"
 }
 
 config_long = {

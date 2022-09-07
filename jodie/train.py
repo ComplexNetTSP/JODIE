@@ -13,10 +13,10 @@ from sklearn.metrics import roc_auc_score
 from ray import tune
 import sys
 import jodie.train as t
+from ray.air import session
 
-
-def train_ray(config, checkpoint_dir=None):
-
+def train_ray(config):
+    
     save_param(config["embedding_dim"], config["learning_rate"],
                config["split"], config["lambda_u"], config["lambda_i"], config["dataset"], config["directory"])
 
@@ -207,4 +207,3 @@ def train_ray(config, checkpoint_dir=None):
         if ep == nb_epoch - 1:
             save_model(model, optimizer, ep+1, loss_train, embedding_dynamic_static_user, embedding_dynamic_static_item, idx_train, embedding_user_timeserie,
                        embedding_item_timeserie, config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"], config["dataset"], config["directory"])
-            print(np.array(loss_train))
