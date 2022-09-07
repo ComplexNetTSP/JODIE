@@ -4,6 +4,16 @@ from jodie.model import *
 from jodie.train import *
 from ray.tune.schedulers import ASHAScheduler
 import os
+import logging
+
+logging.disable(logging.CRITICAL)
+ray.init(logging_level=logging.FATAL)
+logging.basicConfig(level=logging.CRITICAL)
+
+for logger_name in logging.root.manager.loggerDict:
+    logger = logging.getLogger(logger_name)
+    logger.propagate = False
+    logger.disabled = True
 """
 config_format = {
     "embedding_dim" : 8, 16, 32, 64, 128 or tune.grid_search([8, 16, 32, 64, 128]),
