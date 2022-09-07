@@ -30,3 +30,7 @@ $ python training_example.py
 ```bash
 $ python evaluate_example.py
 ```
+### Run the model and make predictions
+```bash
+$ python training_evaluate.py
+```
