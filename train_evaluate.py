@@ -36,25 +36,27 @@ config_format = {
 """
 # Simple config
 config_fast_mooc = {
-    "embedding_dim": tune.grid_search([8, 9]),
+    "embedding_dim": 8,#tune.grid_search([8,16,32]),
     "learning_rate": 1e-3,
-    "split": 500,
-    "lambda_u": 1,
-    "lambda_i": 1,
+    "split": 500,#tune.grid_search([5,500,50000]),
+    "lambda_u": 1,#tune.grid_search([0.1,1,10]),
+    "lambda_i": 1,#tune.grid_search([0.1,1,10]),
     "dataset": "wikipedia",
     "n_epoch": 1,
-    "prop_train": 0.6,
+    "prop_train": 0.8,
     "state" : False,
     "device": "cpu",
     "directory" : "/home/gauthierv/jodie"
 }
 
 if __name__ == '__main__':
-    print("*************************** Start the training ***************************")
+    print("*************************** Start the training for ",end='')
+    print("state change prediction" if config_fast_mooc["state"] else "future interaction prediction ",end='')
+    print("***************************")
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_fast_mooc,
-                        resources_per_trial={"cpu": 4},
+                        resources_per_trial={"cpu": 10},
                         local_dir="./result",
                         verbose=0)
     
