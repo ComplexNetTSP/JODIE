@@ -39,7 +39,7 @@ config_format = {
 
 # Simple config
 config_wiki = {
-    "embedding_dim": 128,
+    "embedding_dim": 8,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
