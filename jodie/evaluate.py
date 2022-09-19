@@ -25,7 +25,18 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
     ratio_label = len(true_labels) / (1 + sum(true_labels))
     
     embedding_dim, learning_rate, split, lambda_u, lambda_i = hyperparameter.split(",")
-    embedding_dim, learning_rate, split, lambda_u, lambda_i = int(embedding_dim), float(learning_rate), int(split), int(lambda_u), int(lambda_i)
+    embedding_dim, learning_rate, split = int(embedding_dim), float(learning_rate), int(split)
+    if lambda_u == '0.1':
+        lambda_u = float(lambda_u)
+    else:
+        lambda_u = int(lambda_u)
+    
+    if lambda_i == '0.1':
+        lambda_i = float(lambda_i)
+    else:
+        lambda_i = int(lambda_i)
+        
+    print("embedding_size : {}, learning_rate : {}, split : {}, lambda_u : {}, lambda_i : {}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
 
     idx_train = int(num_interaction * proportion_train)
     idx_val = int(num_interaction * (proportion_train + ((1 - proportion_train) / 2)))
@@ -159,7 +170,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
         auc_test = roc_auc_score(test_true, test_pred[:, 1])
         perf_test["test"] = [auc_test]
 
-        file = open(directory+"/resultats_"+data+"_{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
+        file = open(directory+"/resultats/"+data+"/resultats_"+data+"_{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
         metrics = ["AUC"]
         for i in range(len(metrics)):
             file.write("Validation : " + metrics[i] + " : " + str(perf_val["val"][i]) + "\n")
@@ -268,7 +279,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
         perf_val["val"] = [mrr_val, recall10_val]
         perf_test["test"] = [mrr_test, recall10_test]
 
-        file = open(directory+"/resultats/"+data+"/{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
+        file = open(directory+"/resultats/"+data+"/resultats_"+data+"_{}_{}_{}_{}_{}.txt".format(embedding_dim, learning_rate, split, lambda_u, lambda_i), "a")
         metrics = ["Mean Reciprocal Rank", "Recall@10"]
         for i in range(len(metrics)):
             file.write("Validation : " + metrics[i] + " : " + str(perf_val["val"][i]) + "\n")

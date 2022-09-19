@@ -34,17 +34,29 @@ config_format = {
     "directory" : "/path/reporitory"
 }
 """
+
+"""
+8,0.001,500,0.1,1
+8,0.001,500,1,1
+8,0.001,500,1,0.1
+16,0.001,500,10,10
+16,0.001,5,0.1,0.1
+32,0.001,500,0.1,1
+32,0.001,500,0.1,0.1
+"""
+
+
 # Simple config
 config_fast_mooc = {
-    "embedding_dim": 8,#tune.grid_search([8,16,32]),
+    "embedding_dim": 128,#tune.grid_search([8,16,32]),
     "learning_rate": 1e-3,
     "split": 500,#tune.grid_search([5,500,50000]),
     "lambda_u": 1,#tune.grid_search([0.1,1,10]),
     "lambda_i": 1,#tune.grid_search([0.1,1,10]),
-    "dataset": "wikipedia",
-    "n_epoch": 1,
-    "prop_train": 0.8,
-    "state" : False,
+    "dataset": "mooc",
+    "n_epoch": 50,
+    "prop_train": 0.6,
+    "state" : True,
     "device": "cpu",
     "directory" : "/home/gauthierv/jodie"
 }
@@ -56,7 +68,7 @@ if __name__ == '__main__':
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_fast_mooc,
-                        resources_per_trial={"cpu": 10},
+                        #resources_per_trial={"cpu": 4},
                         local_dir="./result",
                         verbose=0)
     
