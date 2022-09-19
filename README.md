@@ -4,6 +4,10 @@
 
 ## Install the python environement 
 
+## lab IA 
+
+* [LabIA documention](https://doc.lab-ia.fr/getting-started/)
+
 ### With conda 
 
 create the conda environement for jodie: 
