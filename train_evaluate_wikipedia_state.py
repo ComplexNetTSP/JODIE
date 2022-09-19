@@ -48,7 +48,7 @@ config_wiki = {
     "n_epoch": 50,
     "prop_train": 0.6,
     "state" : True,
-    "device": "cpu",
+    "device": "gpu",
     "directory" : "/home/gauthierv/jodie"
 }
 
