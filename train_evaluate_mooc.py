@@ -41,10 +41,10 @@ config_fast_mooc = {
     "split": 500,#tune.grid_search([5,500,50000]),
     "lambda_u": 1,#tune.grid_search([0.1,1,10]),
     "lambda_i": 1,#tune.grid_search([0.1,1,10]),
-    "dataset": "wikipedia",
+    "dataset": "mooc",
     "n_epoch": 1,
-    "prop_train": 0.8,
-    "state" : False,
+    "prop_train": 0.6,
+    "state" : True,
     "device": "cpu",
     "directory" : "/home/gauthierv/jodie"
 }
