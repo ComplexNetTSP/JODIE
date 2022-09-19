@@ -35,25 +35,16 @@ config_format = {
 }
 """
 
-"""
-8,0.001,500,0.1,1
-8,0.001,500,1,1
-8,0.001,500,1,0.1
-16,0.001,500,10,10
-16,0.001,5,0.1,0.1
-32,0.001,500,0.1,1
-32,0.001,500,0.1,0.1
-"""
 
 
 # Simple config
-config_fast_mooc = {
-    "embedding_dim": 128,#tune.grid_search([8,16,32]),
+config_wiki = {
+    "embedding_dim": 128,
     "learning_rate": 1e-3,
-    "split": 500,#tune.grid_search([5,500,50000]),
-    "lambda_u": 1,#tune.grid_search([0.1,1,10]),
-    "lambda_i": 1,#tune.grid_search([0.1,1,10]),
-    "dataset": "mooc",
+    "split": 500,
+    "lambda_u": 1,
+    "lambda_i": 1,
+    "dataset": "wikipedia",
     "n_epoch": 50,
     "prop_train": 0.6,
     "state" : True,
@@ -63,17 +54,17 @@ config_fast_mooc = {
 
 if __name__ == '__main__':
     print("*************************** Start the training for ",end='')
-    print("state change prediction" if config_fast_mooc["state"] else "future interaction prediction ",end='')
+    print("state change prediction" if config_wiki["state"] else "future interaction prediction ",end='')
     print("***************************")
     analysis = tune.run(train_ray,
                         num_samples=1,
-                        config=config_fast_mooc,
+                        config=config_wiki,
                         #resources_per_trial={"cpu": 4},
                         local_dir="./result",
                         verbose=0)
     
     print("*************************** Start the evaluation process ***************************")
-    filename = config_fast_mooc["directory"]+"/"+ config_fast_mooc["dataset"]+"_hyper-parameter.txt"
+    filename = config_wiki["directory"]+"/"+ config_wiki["dataset"]+"_hyper-parameter.txt"
     with open(filename, 'r') as hyperparameters_file:
         reader = csv.reader(hyperparameters_file, delimiter=',')
         for hyperparameters in reader:
@@ -84,10 +75,10 @@ if __name__ == '__main__':
                   ", lambda_i:",hyperparameters[4],
                   )
             perf_val, perf_test = evaluate(','.join(hyperparameters), 
-                                           config_fast_mooc["dataset"], 
-                                           config_fast_mooc["n_epoch"], 
-                                           config_fast_mooc["device"], 
-                                           config_fast_mooc["prop_train"], 
-                                           config_fast_mooc["state"],
-                                           config_fast_mooc["directory"])
+                                           config_wiki["dataset"], 
+                                           config_wiki["n_epoch"], 
+                                           config_wiki["device"], 
+                                           config_wiki["prop_train"], 
+                                           config_wiki["state"],
+                                           config_wiki["directory"])
             print("validation:", perf_val["val"], ", test:", perf_test["test"])
