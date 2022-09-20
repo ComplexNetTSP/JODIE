@@ -198,8 +198,11 @@ def train_ray(config):
             embedding_user.detach_()
             embedding_item_timeserie.detach_()
             embedding_user_timeserie.detach_()
-
-        loss_train.append(total_loss.detach().numpy())
+        
+        if device == "cpu":
+            loss_train.append(total_loss.detach().numpy())
+        if device == "cuda":
+            loss_train.append(total_loss.detach().cpu().numpy())
 
         embedding_dynamic_static_item = torch.cat(
             [embedding_item, embedding_item_static], dim=1)
