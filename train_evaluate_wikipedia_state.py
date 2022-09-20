@@ -54,19 +54,8 @@ config_wiki = {
 }
 
 if __name__ == '__main__':
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print('Using device:', device)
-    print()
-    
-    #Additional Info when using cuda
-    if device.type == 'cuda':
-        print(torch.cuda.get_device_name(0))
-        print('Memory Usage:')
-        print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3,1), 'GB')
-        print('Cached:   ', round(torch.cuda.memory_reserved(0)/1024**3,1), 'GB')
-
     print("*************************** Start the training for ",end='')
-    print("state change prediction" if config_wiki["state"] else "future interaction prediction ",end='')
+    print("state change prediction " if config_wiki["state"] else "future interaction prediction ",end='')
     print("***************************")
     analysis = tune.run(train_ray,
                         num_samples=1,
