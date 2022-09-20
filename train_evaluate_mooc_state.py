@@ -47,18 +47,18 @@ config_mooc = {
     "n_epoch": 50,
     "prop_train": 0.6,
     "state" : True,
-    "device": "cpu",
-    "directory" : "/home/gauthierv/jodie"
+    "device": "cuda",
+    "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
 }
 
 if __name__ == '__main__':
     print("*************************** Start the training for ",end='')
-    print("state change prediction" if config_mooc["state"] else "future interaction prediction ",end='')
+    print("state change prediction " if config_mooc["state"] else "future interaction prediction ",end='')
     print("***************************")
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_mooc,
-                        resources_per_trial={"cpu": 1},
+                        resources_per_trial={"gpu": 1},
                         local_dir="./result",
                         verbose=0)
     

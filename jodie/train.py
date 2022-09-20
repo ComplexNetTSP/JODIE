@@ -26,7 +26,7 @@ def train_ray(config):
     fichier.write("\n")
     fichier.close()
     
-    data = fetch_datasets(config["dataset"], config["directory"] + "/JODIE/data/")
+    data = fetch_datasets(config["dataset"], config["directory"] + "/data/")
 
     df = data.to_numpy()
     user_id, id_user_sequence, delta_u, previous_item_sequence, item_id, id_item_sequence, delta_i, timestamp_sequence, feature_sequence, true_labels = preprocess(

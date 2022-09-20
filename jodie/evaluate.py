@@ -36,8 +36,6 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
     else:
         lambda_i = int(lambda_i)
         
-    print("embedding_size : {}, learning_rate : {}, split : {}, lambda_u : {}, lambda_i : {}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i))
-
     idx_train = int(num_interaction * proportion_train)
     idx_val = int(num_interaction * (proportion_train + ((1 - proportion_train) / 2)))
     idx_test = int(num_interaction)
