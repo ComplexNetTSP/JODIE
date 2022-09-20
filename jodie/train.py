@@ -52,8 +52,13 @@ def train_ray(config):
     loss_train = []
 
     # initialize model and parameters
-    model = RODIE(config["embedding_dim"], num_users, num_items, num_features,
+    print(device)
+    print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3,1), 'GB')
+    print('Cached:   ', round(torch.cuda.memory_reserved(0)/1024**3,1), 'GB')
+    print(int(config["embedding_dim"]), num_users, num_items, num_features)
+    model = RODIE(int(config["embedding_dim"]), num_users, num_items, num_features,
                   activation_rnn="tanh", MLP_hidden_layer_dim=50).to(device)
+    
     weight = torch.Tensor([1, ratio_label]).to(device)
     CE_loss = nn.CrossEntropyLoss(weight=weight)
     MSE = nn.MSELoss()

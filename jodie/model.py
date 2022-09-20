@@ -97,17 +97,11 @@ class RODIE(nn.Module):
         return output
 
     # calculate loss for prediction user state
-    def loss_predict_state(self, model, device, interaction_id, all_previous_embeddings_user, true_label, loss_function):
-        print(device)
-        print(true_label)
-        print(interaction_id)
-        
+    def loss_predict_state(self, model, device, interaction_id, all_previous_embeddings_user, true_label, loss_function):       
         proba = model.predict_state(
             all_previous_embeddings_user[interaction_id, :])
-        print(proba)
         y_true = Variable(torch.LongTensor(
             true_label).to(device)[interaction_id])
-        print(y_true)
         loss = loss_function(proba, y_true)
         return loss
 

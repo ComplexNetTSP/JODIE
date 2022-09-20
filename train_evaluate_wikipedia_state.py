@@ -49,7 +49,7 @@ config_wiki = {
     "n_epoch": 50,
     "prop_train": 0.6,
     "state" : True,
-    "device": "cpu",
+    "device": "cuda",
     "directory" : "/mnt/beegfs/home/gauthier/JODIE"
 }
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_wiki,
-                        #resources_per_trial={"cpu": 4},
+                        resources_per_trial={"gpu":1},
                         local_dir="./result",
                         verbose=0)
     

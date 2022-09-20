@@ -104,7 +104,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
                 embedding_item_static_input = embedding_item_static[torch.LongTensor([id_item])]
                 item_embedding_previous = embedding_item[torch.LongTensor([id_previous])]
 
-            if device == "gpu":
+            if device == "cuda":
                 embedding_user_input = embedding_user[torch.cuda.LongTensor([id_user])]
                 embedding_user_static_input = embedding_user_static[torch.cuda.LongTensor([id_user])]
                 embedding_item_input = embedding_item[torch.cuda.LongTensor([id_item])]
@@ -119,7 +119,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
             if device == "cpu":
                 embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
 
-            if device == "gpu":
+            if device == "cuda":
                 embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.cuda.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
 
             predict_embedding_item = model.predict_embedding_item(embedding_user_item)
@@ -205,7 +205,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
                 embedding_item_static_input = embedding_item_static[torch.LongTensor([id_item])]
                 item_embedding_previous = embedding_item[torch.LongTensor([id_previous])]
 
-            if device == "gpu":
+            if device == "cuda":
                 embedding_user_input = embedding_user[torch.cuda.LongTensor([id_user])]
                 embedding_user_static_input = embedding_user_static[torch.cuda.LongTensor([id_user])]
                 embedding_item_input = embedding_item[torch.LongTensor([id_item])]
@@ -221,7 +221,7 @@ def evaluate(hyperparameter, data, epoch=50, device="cpu", proportion_train=0.6,
             if device == "cpu":
                 embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
 
-            if device == "gpu":
+            if device == "cuda":
                 embedding_user_item = torch.cat([projected_embedding_user, item_embedding_previous, embedding_item_static[torch.cuda.LongTensor([id_previous])], embedding_user_static_input], dim = 1)
 
             predict_embedding_item = model.predict_embedding_item(embedding_user_item)
