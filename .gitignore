@@ -2,6 +2,7 @@ __pycache__/
 result/
 jodie-env/
 env/
+resultats/
 data/
 saved_*
 *_hyper-parameter.txt

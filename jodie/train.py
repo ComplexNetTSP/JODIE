@@ -54,7 +54,6 @@ def train_ray(config):
     # initialize model and parameters
     model = RODIE(int(config["embedding_dim"]), num_users, num_items, num_features,
                   activation_rnn="tanh", MLP_hidden_layer_dim=50).to(device)
-    
     weight = torch.Tensor([1, ratio_label]).to(device)
     CE_loss = nn.CrossEntropyLoss(weight=weight)
     MSE = nn.MSELoss()
