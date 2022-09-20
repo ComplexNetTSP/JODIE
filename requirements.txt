@@ -1,8 +1,9 @@
+wheel
 jupyter
 jupyterlab
 tqdm
 pandas
 scikit-learn
-torch
+--extra-index-url https://download.pytorch.org/whl/cu116 torch
 ray[tune]
 ray[air]

@@ -184,7 +184,7 @@ def fetch_datasets(name, data_path="./data/"):
     assert name in ["lastfm", "mooc", "reddit", "wikipedia"]
     dataset_path = data_path + name + ".csv"
     url = "http://snap.stanford.edu/jodie/" + name + ".csv"
-
+    print(dataset_path)
     if os.path.exists(dataset_path):
         df = pd.read_csv(dataset_path)
     else:

@@ -8,6 +8,7 @@ from ray.tune.schedulers import ASHAScheduler
 import os
 import csv
 import logging
+import torch
 
 logging.disable(logging.CRITICAL)
 ray.init(logging_level=logging.FATAL)
@@ -48,11 +49,22 @@ config_wiki = {
     "n_epoch": 50,
     "prop_train": 0.6,
     "state" : True,
-    "device": "gpu",
-    "directory" : "/home/gauthierv/jodie"
+    "device": "cpu",
+    "directory" : "/mnt/beegfs/home/gauthier/JODIE"
 }
 
 if __name__ == '__main__':
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print('Using device:', device)
+    print()
+    
+    #Additional Info when using cuda
+    if device.type == 'cuda':
+        print(torch.cuda.get_device_name(0))
+        print('Memory Usage:')
+        print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3,1), 'GB')
+        print('Cached:   ', round(torch.cuda.memory_reserved(0)/1024**3,1), 'GB')
+
     print("*************************** Start the training for ",end='')
     print("state change prediction" if config_wiki["state"] else "future interaction prediction ",end='')
     print("***************************")
