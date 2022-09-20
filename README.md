@@ -4,6 +4,10 @@
 
 ## Install the python environement 
 
+## lab IA 
+
+* [LabIA documention](https://doc.lab-ia.fr/getting-started/)
+
 ### With conda 
 
 create the conda environement for jodie: 
@@ -15,10 +19,15 @@ $ python -m pip install -r requirements.txt
 
 ### With virtual env
 ```bash
-$ python -m venv jodie-env
-$ source jodie-env/bin/activate
+$ python -m venv env
+$ source env/bin/activate
 $ python -m pip install -r requirements.txt  
 ```
+
+```bash
+python -m pip install --proxy=http://webproxy.lab-ia.fr:8080 -r requirements.txt
+```
+
 ### Run the model 
 
 ```bash

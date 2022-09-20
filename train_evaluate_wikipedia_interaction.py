@@ -30,40 +30,41 @@ config_format = {
     "n_epoch" : integer 50,
     "prop_train" : between 0 and 1,
     "state" : True or False,
-    "device" : "cpu" or "gpu",
-    "directory" : "/path/reporitory"
+    "device" : "cpu" or "cuda",
+    "directory" : "/path/reporitory/"
 }
 """
 
 
+
 # Simple config
-config_mooc = {
-    "embedding_dim": 128,#tune.grid_search([8,16,32]),
+config_wiki = {
+    "embedding_dim": 8,
     "learning_rate": 1e-3,
-    "split": 500,#tune.grid_search([5,500,50000]),
-    "lambda_u": 1,#tune.grid_search([0.1,1,10]),
-    "lambda_i": 1,#tune.grid_search([0.1,1,10]),
-    "dataset": "mooc",
+    "split": 500,
+    "lambda_u": 1,
+    "lambda_i": 1,
+    "dataset": "wikipedia",
     "n_epoch": 50,
-    "prop_train": 0.6,
-    "state" : True,
+    "prop_train": 0.8,
+    "state" : False,
     "device": "cpu",
     "directory" : "/home/gauthierv/jodie"
 }
 
 if __name__ == '__main__':
     print("*************************** Start the training for ",end='')
-    print("state change prediction" if config_mooc["state"] else "future interaction prediction ",end='')
+    print("state change prediction" if config_wiki["state"] else "future interaction prediction ",end='')
     print("***************************")
     analysis = tune.run(train_ray,
                         num_samples=1,
-                        config=config_mooc,
-                        resources_per_trial={"cpu": 1},
+                        config=config_wiki,
+                        #resources_per_trial={"cpu": 4},
                         local_dir="./result",
                         verbose=0)
     
     print("*************************** Start the evaluation process ***************************")
-    filename = config_mooc["directory"]+"/"+ config_mooc["dataset"]+"_hyper-parameter.txt"
+    filename = config_wiki["directory"]+"/"+ config_wiki["dataset"]+"_hyper-parameter.txt"
     with open(filename, 'r') as hyperparameters_file:
         reader = csv.reader(hyperparameters_file, delimiter=',')
         for hyperparameters in reader:
@@ -74,10 +75,10 @@ if __name__ == '__main__':
                   ", lambda_i:",hyperparameters[4],
                   )
             perf_val, perf_test = evaluate(','.join(hyperparameters), 
-                                           config_mooc["dataset"], 
-                                           config_mooc["n_epoch"], 
-                                           config_mooc["device"], 
-                                           config_mooc["prop_train"], 
-                                           config_mooc["state"],
-                                           config_mooc["directory"])
+                                           config_wiki["dataset"], 
+                                           config_wiki["n_epoch"], 
+                                           config_wiki["device"], 
+                                           config_wiki["prop_train"], 
+                                           config_wiki["state"],
+                                           config_wiki["directory"])
             print("validation:", perf_val["val"], ", test:", perf_test["test"])
