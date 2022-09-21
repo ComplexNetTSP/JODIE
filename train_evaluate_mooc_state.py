@@ -38,11 +38,11 @@ config_format = {
 
 # Simple config
 config_mooc = {
-    "embedding_dim": 128,#tune.grid_search([8,16,32]),
+    "embedding_dim": 128,#
     "learning_rate": 1e-3,
-    "split": 500,#tune.grid_search([5,500,50000]),
-    "lambda_u": 1,#tune.grid_search([0.1,1,10]),
-    "lambda_i": 1,#tune.grid_search([0.1,1,10]),
+    "split": 500,
+    "lambda_u": 1,
+    "lambda_i": 1,
     "dataset": "mooc",
     "n_epoch": 50,
     "prop_train": 0.6,
