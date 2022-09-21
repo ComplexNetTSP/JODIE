@@ -5,4 +5,5 @@ env/
 resultats/
 data/
 saved_*
+figure.py
 *_hyper-parameter.txt

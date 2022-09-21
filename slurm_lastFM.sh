@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -J lastFM
+#SBATCH -J 128-lastFM
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100g
