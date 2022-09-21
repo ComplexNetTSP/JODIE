@@ -4,19 +4,9 @@ from jodie.preprocessing import *
 from jodie.model import *
 from jodie.train import *
 from jodie.evaluate import *
-from ray.tune.schedulers import ASHAScheduler
 import os
 import csv
 import logging
-
-logging.disable(logging.CRITICAL)
-ray.init(logging_level=logging.FATAL)
-logging.basicConfig(level=logging.CRITICAL)
-
-for logger_name in logging.root.manager.loggerDict:
-    logger = logging.getLogger(logger_name)
-    logger.propagate = False
-    logger.disabled = True
 
 
 """
@@ -53,13 +43,22 @@ config_reddit = {
 }
 
 if __name__ == '__main__':
+
+    logging.disable(logging.CRITICAL)
+    ray.init(logging_level=logging.FATAL)
+    logging.basicConfig(level=logging.CRITICAL)
+    for logger_name in logging.root.manager.loggerDict:
+        logger = logging.getLogger(logger_name)
+        logger.propagate = False
+        logger.disabled = True
+
     print("*************************** Start the training for ",end='')
     print("state change prediction" if config_reddit["state"] else "future interaction prediction ",end='')
     print("***************************")
     analysis = tune.run(train_ray,
                         num_samples=1,
-                        config=config_wiki,
-                        #resources_per_trial={"cpu": 4},
+                        config=config_reddit,
+                        resources_per_trial={"gpu": 1},
                         local_dir="./result",
                         verbose=0)
     
