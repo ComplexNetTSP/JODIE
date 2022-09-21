@@ -59,7 +59,7 @@ if __name__ == '__main__':
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_wiki,
-                        #resources_per_trial={"cpu": 4},
+                        resources_per_trial={"gpu": 1},
                         local_dir="./result",
                         verbose=0)
     
