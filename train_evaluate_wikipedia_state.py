@@ -36,7 +36,7 @@ config_wiki = {
     "lambda_i": 1,
     "dataset": "wikipedia",
     "n_epoch": 50,
-    "prop_train": 0.6,
+    "prop_train": 0.5,
     "state" : True,
     "device": "cuda",
     "directory" : "/mnt/beegfs/home/gauthier/JODIE"

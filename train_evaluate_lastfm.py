@@ -28,7 +28,7 @@ config_format = {
 
 # Simple config
 config_lastfm = {
-    "embedding_dim": 128,
+    "embedding_dim": 256,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
@@ -61,6 +61,7 @@ if __name__ == '__main__':
                         resources_per_trial={"gpu": 1},
                         local_dir="./result",
                         verbose=0)
+
     
     print("*************************** Start the evaluation process ***************************")
     filename = config_lastfm["directory"]+"/"+ config_lastfm["dataset"]+"_hyper-parameter.txt"
