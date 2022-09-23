@@ -29,7 +29,7 @@ config_format = {
 
 # Simple config
 config_reddit = {
-    "embedding_dim": 128,
+    "embedding_dim": 256,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,

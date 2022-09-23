@@ -29,14 +29,14 @@ config_format = {
 
 # Simple config
 config_wiki = {
-    "embedding_dim": 128,
+    "embedding_dim": 32,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
     "lambda_i": 1,
     "dataset": "wikipedia",
     "n_epoch": 50,
-    "prop_train": 0.5,
+    "prop_train": 0.6,
     "state" : True,
     "device": "cuda",
     "directory" : "/mnt/beegfs/home/gauthier/JODIE"
