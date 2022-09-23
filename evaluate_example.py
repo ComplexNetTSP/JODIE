@@ -1,11 +1,11 @@
 from jodie.evaluate import *
 
-data = "mooc"   # 4 options : "mooc", "wikipedia", "lastfm" and "reddit"
+data = "reddit"   # 4 options : "mooc", "wikipedia", "lastfm" and "reddit"
 evaluate_epoch = 50  # depend on training epochs
-device = "cpu"  # 2 options : "cpu" and "gpu"
-proportion_train = 0.6  # between 0 and 1
-state = True    # 2 options : True or False
-directory = "/home/gauthierv/jodie"    # format must be : /home/name/reporitory
+device = "cuda"  # 2 options : "cpu" and "gpu"
+proportion_train = 0.8  # between 0 and 1
+state = False    # 2 options : True or False
+directory = "/mnt/beegfs/home/gauthier/JODIE/"    # format must be : /home/name/reporitory
 
 fichier = open(directory+"/"+data+"_hyper-parameter.txt", "r")
 lines = fichier.readlines()
