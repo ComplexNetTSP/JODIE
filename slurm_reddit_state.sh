@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -J 32-reddit-state
+#SBATCH -J reddit-size
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100g
