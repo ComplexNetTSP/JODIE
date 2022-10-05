@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -J emb_size
+#SBATCH -J 2-4_reddit
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100g

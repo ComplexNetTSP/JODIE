@@ -29,7 +29,7 @@ config_format = {
 
 # Simple config
 config_reddit = {
-    "embedding_dim": tune.grid_search([8,16,32,64,128,256]),
+    "embedding_dim": tune.grid_search([2,4]),
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,

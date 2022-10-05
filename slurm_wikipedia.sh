@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -J 256-wikipedia
+#SBATCH -J 2-4-wiki
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100g

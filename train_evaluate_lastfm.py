@@ -28,7 +28,7 @@ config_format = {
 
 # Simple config
 config_lastfm_1 = {
-    "embedding_dim": 16,
+    "embedding_dim": tune.grid_search([2,4]),
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
@@ -41,19 +41,6 @@ config_lastfm_1 = {
     "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
 }
 
-config_lastfm_2 = {
-    "embedding_dim": 8,
-    "learning_rate": 1e-3,
-    "split": 500,
-    "lambda_u": 1,
-    "lambda_i": 1,
-    "dataset": "lastfm",
-    "n_epoch": 50,
-    "prop_train": 0.8,
-    "state" : False,
-    "device": "cuda",
-    "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
-}
 
 if __name__ == '__main__':
 
@@ -72,16 +59,6 @@ if __name__ == '__main__':
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_lastfm_1,
-                        resources_per_trial={"gpu": 1},
-                        local_dir="./result",
-                        verbose=0)
-
-    print("*************************** Start the training for ",end='')
-    print("state change prediction" if config_lastfm_2["state"] else "future interaction prediction ",end='')
-    print("***************************")
-    analysis = tune.run(train_ray,
-                        num_samples=1,
-                        config=config_lastfm_2,
                         resources_per_trial={"gpu": 1},
                         local_dir="./result",
                         verbose=0)
