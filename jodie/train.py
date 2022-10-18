@@ -170,6 +170,6 @@ def train_ray(config):
             [embedding_user, embedding_user_static], dim=1)
         embedding_user = init_embedding_user.repeat(num_users, 1)
         embedding_item = init_embedding_item.repeat(num_items, 1)
-        if ep == nb_epoch - 1:
-            save_model(model, optimizer, ep+1, loss_train, embedding_dynamic_static_user, embedding_dynamic_static_item, idx_train, embedding_user_timeserie,
+        
+        save_model(model, optimizer, ep+1, loss_train, embedding_dynamic_static_user, embedding_dynamic_static_item, idx_train, embedding_user_timeserie,
                        embedding_item_timeserie, config["embedding_dim"], config["learning_rate"], config["split"], config["lambda_u"], config["lambda_i"], config["dataset"], config["directory"])

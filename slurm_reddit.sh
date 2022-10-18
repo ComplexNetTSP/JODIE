@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -J 2-4_reddit
+#SBATCH -J 8-int-reddit
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100g

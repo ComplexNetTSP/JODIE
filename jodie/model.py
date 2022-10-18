@@ -152,7 +152,7 @@ def load_param(embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset,
 
 # load model
 def load_model(model, optimizer, epoch, device, embedding_dim, learning_rate, split, lambda_u, lambda_i, dataset, directory):
-  filename = directory+"/saved_models_"+dataset+"/saved_model/{}_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch)
+  filename = directory+"/saved_models_"+dataset+"/saved_model/{}_{}_{}_{}_{}_{}".format(embedding_dim, learning_rate, split, lambda_u, lambda_i, epoch+1)
   checkpoint = torch.load(filename)
   user_embeddings = Variable(torch.from_numpy(checkpoint["user_embeddings"]).to(device))
   item_embeddings = Variable(torch.from_numpy(checkpoint["item_embeddings"]).to(device))

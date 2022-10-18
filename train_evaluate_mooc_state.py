@@ -30,7 +30,7 @@ config_format = {
 
 # Simple config
 config_mooc = {
-    "embedding_dim": tune.grid_search([2,4]),
+    "embedding_dim": 8,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
@@ -82,4 +82,4 @@ if __name__ == '__main__':
                                            config_mooc["prop_train"], 
                                            config_mooc["state"],
                                            config_mooc["directory"])
-            print("validation:", perf_val["val"], ", test:", perf_test["test"])
+            print("validation:", perf_val, ", test:", perf_test)
