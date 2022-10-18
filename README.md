@@ -6,7 +6,7 @@
 
 ## lab IA 
 
-* [LabIA documention](https://doc.lab-ia.fr/getting-started/)
+* [LabIA documentation](https://doc.lab-ia.fr/getting-started/)
 
 ### With conda 
 
