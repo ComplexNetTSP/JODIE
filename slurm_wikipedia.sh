@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -J 8-int-wiki
+#SBATCH -J 32i-wiki
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100g

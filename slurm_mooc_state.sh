@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH -J 8-mooc
+#SBATCH -J 128-mooc
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100g

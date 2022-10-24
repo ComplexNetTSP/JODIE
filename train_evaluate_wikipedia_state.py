@@ -7,11 +7,11 @@ from jodie.evaluate import *
 import os
 import csv
 import logging
-import torch
 
 """
 config_format = {
-    "embedding_dim" : 8, 16, 32, 64, 128 or tune.grid_search([8, 16, 32, 64, 128]),
+    "embedding_dim" : 8, 16, 32, 64, 128 or tune.grid_search([8, 16, 32, 64, 128
+]),
     "learning_rate" : float (i.e.: 1e-5)
     "split" : integer between 1 and dataset number of observation,
     "lambda_u" : integer between 0 and infinity,
@@ -20,8 +20,8 @@ config_format = {
     "n_epoch" : integer 50,
     "prop_train" : between 0 and 1,
     "state" : True or False,
-    "device" : "cpu" or "gpu",
-    "directory" : "/path/reporitory"
+    "device" : "cpu" or "cuda",
+    "directory" : "/path/reporitory/"
 }
 """
 
@@ -29,7 +29,7 @@ config_format = {
 
 # Simple config
 config_wiki = {
-    "embedding_dim": 8,
+    "embedding_dim": 128,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
@@ -39,8 +39,9 @@ config_wiki = {
     "prop_train": 0.6,
     "state" : True,
     "device": "cuda",
-    "directory" : "/mnt/beegfs/home/gauthier/JODIE"
+    "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
 }
+
 
 if __name__ == '__main__':
 
@@ -53,16 +54,16 @@ if __name__ == '__main__':
         logger.propagate = False
         logger.disabled = True
 
-
     print("*************************** Start the training for ",end='')
-    print("state change prediction " if config_wiki["state"] else "future interaction prediction ",end='')
+    print("state change prediction" if config_wiki["state"] else "future interaction prediction ",end='')
     print("***************************")
     analysis = tune.run(train_ray,
                         num_samples=1,
                         config=config_wiki,
-                        resources_per_trial={"gpu":1},
+                        resources_per_trial={"gpu": 1},
                         local_dir="./result",
                         verbose=0)
+
     
     print("*************************** Start the evaluation process ***************************")
     filename = config_wiki["directory"]+"/"+ config_wiki["dataset"]+"_hyper-parameter.txt"

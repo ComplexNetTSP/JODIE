@@ -8,10 +8,10 @@ import os
 import csv
 import logging
 
-
 """
 config_format = {
-    "embedding_dim" : 8, 16, 32, 64, 128 or tune.grid_search([8, 16, 32, 64, 128]),
+    "embedding_dim" : 8, 16, 32, 64, 128 or tune.grid_search([8, 16, 32, 64, 128
+]),
     "learning_rate" : float (i.e.: 1e-5)
     "split" : integer between 1 and dataset number of observation,
     "lambda_u" : integer between 0 and infinity,
@@ -29,18 +29,19 @@ config_format = {
 
 # Simple config
 config_wiki = {
-    "embedding_dim": 8,
+    "embedding_dim": 32,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
     "lambda_i": 1,
     "dataset": "wikipedia",
-    "n_epoch": 50,
+    "n_epoch": 5,
     "prop_train": 0.8,
     "state" : False,
     "device": "cuda",
     "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
 }
+
 
 if __name__ == '__main__':
 
@@ -62,6 +63,7 @@ if __name__ == '__main__':
                         resources_per_trial={"gpu": 1},
                         local_dir="./result",
                         verbose=0)
+
     
     print("*************************** Start the evaluation process ***************************")
     filename = config_wiki["directory"]+"/"+ config_wiki["dataset"]+"_hyper-parameter.txt"
@@ -82,4 +84,3 @@ if __name__ == '__main__':
                                            config_wiki["state"],
                                            config_wiki["directory"])
             print("validation:", perf_val["val"], ", test:", perf_test["test"])
-
