@@ -28,7 +28,7 @@ config_format = {
 
 # Simple config
 config_lastfm_1 = {
-    "embedding_dim": 32,
+    "embedding_dim": 128,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
