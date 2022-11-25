@@ -2,7 +2,7 @@
 
 - Rescience C paper on [overleaf](https://www.overleaf.com/read/yzdtjgjppgkg)
 
-## Install the python environement 
+## Install the python environment 
 
 ## lab IA 
 
@@ -10,7 +10,7 @@
 
 ### With conda 
 
-create the conda environement for jodie: 
+create the conda environment for jodie: 
 ```bash
 $ conda create --name jodie python=3.10
 $ conda activate jodie
