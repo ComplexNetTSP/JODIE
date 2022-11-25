@@ -28,18 +28,8 @@ $ python -m pip install -r requirements.txt
 python -m pip install --proxy=http://webproxy.lab-ia.fr:8080 -r requirements.txt
 ```
 
-### Run the model 
-
-```bash
-$ python training_example.py
-```
-
-### Make predictions 
-
-```bash
-$ python evaluate_example.py
-```
 ### Run the model and make predictions
+
 ```bash
-$ python train_evaluate.py
+$ sbatch slurm_wikipedia.sh
 ```
