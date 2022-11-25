@@ -33,3 +33,6 @@ python -m pip install --proxy=http://webproxy.lab-ia.fr:8080 -r requirements.txt
 ```bash
 $ sbatch slurm_wikipedia.sh
 ```
+
+### Change hyperparameters
+In file train_evaluate_wikipedia.py, change the configuration config_wiki
