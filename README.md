@@ -1,4 +1,4 @@
-# JODIE
+# [Re] Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks
 
 - Rescience C paper on [overleaf](https://www.overleaf.com/read/yzdtjgjppgkg)
 
@@ -25,3 +25,7 @@ $ python -m pip install -r requirements.txt
 ```bash
 $ sbatch slurm_wikipedia.sh
 ```
+
+# Code
+
+The folder jodie gather the main functions.
