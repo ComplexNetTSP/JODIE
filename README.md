@@ -26,6 +26,6 @@ $ python -m pip install -r requirements.txt
 $ sbatch slurm_wikipedia.sh
 ```
 
-# Code
+## Code
 
 The folder jodie gather the main functions.
