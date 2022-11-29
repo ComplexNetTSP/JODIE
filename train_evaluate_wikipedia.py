@@ -24,29 +24,25 @@ config_format = {
     "directory" : "/path/reporitory/"
 }
 """
-
-
-
-# Simple config
+# Simple config                                                                                                                                                                               
 config_wiki = {
-    "embedding_dim": 32,
+    "embedding_dim": 128,
     "learning_rate": 1e-3,
     "split": 500,
     "lambda_u": 1,
     "lambda_i": 1,
     "dataset": "wikipedia",
-    "n_epoch": 5,
-    "prop_train": 0.8,
+    "n_epoch": 50,
+    "prop_train": 0.3,
     "state" : False,
     "device": "cuda",
     "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
 }
 
-
 if __name__ == '__main__':
 
     logging.disable(logging.CRITICAL)
-    ray.init(logging_level=logging.FATAL)
+    #ray.init(logging_level=logging.FATAL)
     logging.basicConfig(level=logging.CRITICAL)
 
     for logger_name in logging.root.manager.loggerDict:
@@ -64,23 +60,23 @@ if __name__ == '__main__':
                         local_dir="./result",
                         verbose=0)
 
-    
+
     print("*************************** Start the evaluation process ***************************")
     filename = config_wiki["directory"]+"/"+ config_wiki["dataset"]+"_hyper-parameter.txt"
     with open(filename, 'r') as hyperparameters_file:
         reader = csv.reader(hyperparameters_file, delimiter=',')
         for hyperparameters in reader:
-            print("embedding_dim:", hyperparameters[0], 
+            print("embedding_dim:", hyperparameters[0],
                   ", learning_rate:", hyperparameters[1],
                   ", split:", hyperparameters[2],
                   ", lambda_u:",hyperparameters[3],
                   ", lambda_i:",hyperparameters[4],
                   )
-            perf_val, perf_test = evaluate(','.join(hyperparameters), 
-                                           config_wiki["dataset"], 
-                                           config_wiki["n_epoch"], 
-                                           config_wiki["device"], 
-                                           config_wiki["prop_train"], 
+            perf_val, perf_test = evaluate(','.join(hyperparameters),
+                                           config_wiki["dataset"],
+                                           config_wiki["n_epoch"],
+                                           config_wiki["device"],
+                                           config_wiki["prop_train"],
                                            config_wiki["state"],
                                            config_wiki["directory"])
             print("validation:", perf_val["val"], ", test:", perf_test["test"])
