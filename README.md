@@ -30,7 +30,7 @@ $ sbatch slurm_wikipedia.sh
 
 The folder jodie gather the main functions.
 
-## Result
+## Results
 
 To replicate results from table 2:
 - train_evaluate_reddit_state.py
