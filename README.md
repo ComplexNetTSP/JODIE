@@ -29,3 +29,15 @@ $ sbatch slurm_wikipedia.sh
 ## Code
 
 The folder jodie gather the main functions.
+
+## Result
+
+To replicate results from table 2:
+- train_evaluate_reddit_state.py
+- train_evaluate_wikipedia_state.py
+- train_evaluate_mooc.py
+
+To replicate results from table 3:
+- train_evaluate_reddit.py
+- train_evaluate_wikipedia.py
+- train_evaluate_lastfm.py
