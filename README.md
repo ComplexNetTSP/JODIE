@@ -23,7 +23,7 @@ $ python -m pip install -r requirements.txt
 ### Run the model and make predictions
 
 ```bash
-$ sbatch slurm_wikipedia.sh
+$ python train_evaluate_wikipedia.py
 ```
 
 ## Code
