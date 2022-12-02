@@ -32,10 +32,12 @@ The folder jodie gather the main functions.
 
 ## Results
 
-To replicate results from table 2:
-- train_evaluate_reddit_state.py
-- train_evaluate_wikipedia_state.py
-- train_evaluate_mooc_state.py
+To replicate results from table 2, lauch the following script with the hyperparameters setup (see the inside each script for some template):
+```bash
+$ python train_evaluate_reddit_state.py
+$ python train_evaluate_wikipedia_state.py
+$ python train_evaluate_mooc_state.py
+```
 
 To replicate results from table 3:
 - train_evaluate_reddit.py
