@@ -30,7 +30,7 @@ $ python train_evaluate_wikipedia.py
 
 ## Code
 
-The folder jodie gathers the main functions, namely the JODIE model in model.py, the preprocess of data in preprocessing.py, the training loop in train.py and the file evaluate.py to evaluate the model.
+The folder **jodie** gathers the main functions, namely the JODIE model in model.py, the preprocess of data in preprocessing.py, the training loop in train.py and the file evaluate.py to evaluate the model.
 
 ## Results
 
