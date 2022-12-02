@@ -2,7 +2,7 @@
 
 #### [R.Haton, R. Ait Ali Yahia, V. Gauthier and A. Bouzeghoub, "[Re] Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks", ReScience C 2022](https://github.com/ComplexNetTSP/JODIE-RESCIENCE/blob/master/article.pdf)
 
-this Repository containing the code and article for the replication of the article 'A circuit model of auditory cortex.' PLoS Computational Biology, 16(7), e1008016 by Youngmin Park and Maria N. Geffen.
+#### This Repository containing the code and article for the replication of the article 'A circuit model of auditory cortex.' PLoS Computational Biology, 16(7), e1008016 by Youngmin Park and Maria N. Geffen.
 
 ## Install the python environment 
 
