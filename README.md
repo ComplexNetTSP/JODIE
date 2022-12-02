@@ -2,7 +2,7 @@
 
 #### [R.Haton, R. Ait Ali Yahia, V. Gauthier and A. Bouzeghoub, "[Re] Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks", ReScience C 2022](https://github.com/ComplexNetTSP/JODIE-RESCIENCE/blob/master/article.pdf)
 
-#### This Repository containing the code and article for the replication of the article ['Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks'](https://www-cs.stanford.edu/~srijan/pubs/paper-interactions.pdf), Proceedings of the 25th ACM SIGKDD international conference on Knowledge discovery and data mining, ACM, 2019, S. Kumar, X. Zhang, and J. Leskovec.
+#### This Repository containing the code and article for the replication of the article ['Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks.'](https://www-cs.stanford.edu/~srijan/pubs/paper-interactions.pdf) Proceedings of the 25th ACM SIGKDD international conference on Knowledge discovery and data mining, ACM, 2019 by S. Kumar, X. Zhang, and J. Leskovec.
 
 ## Install the python environment 
 
