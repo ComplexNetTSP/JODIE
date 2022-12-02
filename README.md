@@ -1,8 +1,8 @@
-# [Re] Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks
-## Authors
-R.Haton, R. Ait Ali Yahia, V. Gauthier and A. Bouzeghoub. Re Science C 2022.
+## Code repository of the paper entitled "[[Re] Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks)(https://github.com/ComplexNetTSP/JODIE-RESCIENCE/blob/master/article.pdf)"
 
-- Rescience C paper on [overleaf](https://www.overleaf.com/read/yzdtjgjppgkg)
+### [R.Haton, R. Ait Ali Yahia, V. Gauthier and A. Bouzeghoub, "[Re] Predicting Dynamic Embedding Trajectory in Temporal Interaction Networks", ReScience C 2022](https://github.com/ComplexNetTSP/JODIE-RESCIENCE/blob/master/article.pdf)
+
+
 
 ## Install the python environment 
 
