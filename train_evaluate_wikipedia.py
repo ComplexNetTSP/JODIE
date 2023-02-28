@@ -36,7 +36,7 @@ config_wiki = {
     "prop_train": 0.8,
     "state" : False,
     "device": "cuda",
-    "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
+    "directory" : "/home/rhaton/JODIE/"
 }
 
 if __name__ == '__main__':

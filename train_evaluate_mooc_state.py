@@ -40,13 +40,13 @@ config_mooc = {
     "prop_train": 0.6,
     "state" : True,
     "device": "cuda",
-    "directory" : "/mnt/beegfs/home/gauthier/JODIE/"
+    "directory" : "/home/rhaton/JODIE/"
 }
 
 if __name__ == '__main__':
 
     logging.disable(logging.CRITICAL)
-    ray.init(logging_level=logging.FATAL)
+    #ray.init(logging_level=logging.FATAL)
     logging.basicConfig(level=logging.CRITICAL)
 
     for logger_name in logging.root.manager.loggerDict:
