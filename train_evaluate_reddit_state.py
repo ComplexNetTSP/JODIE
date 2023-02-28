@@ -47,7 +47,7 @@ config_reddit = {
 if __name__ == '__main__':
 
     logging.disable(logging.CRITICAL)
-    ray.init(logging_level=logging.FATAL)
+    #ray.init(logging_level=logging.FATAL)
     logging.basicConfig(level=logging.CRITICAL)
 
     for logger_name in logging.root.manager.loggerDict:
